@@ -1,21 +1,37 @@
-// 1. Seleciona o botão e a área de texto do HTML usando o JavaScript
+// 1. Seleciona os elementos do HTML
 const botaoGerar = document.querySelector("button");
 const areaTexto = document.querySelector("textarea");
+const corpoDaPagina = document.body; // Seleciona o fundo do site
 
-// 2. Cria a função que será executada quando o botão for clicado
-function mapearCliqueDoBotao() {
-    // Pega o texto que o usuário digitou dentro do textarea
-    const textoDigitado = areaTexto.value;
+// Dicionário simples para traduzir cores comuns digitadas em português
+const coresTraduzidas = {
+    "azul": "blue",
+    "vermelho": "red",
+    "verde": "green",
+    "amarelo": "yellow",
+    "roxo": "purple",
+    "rosa": "pink",
+    "laranja": "orange",
+    "preto": "black",
+    "branco": "white",
+    "cinza": "gray"
+};
 
-    // Se o usuário não digitou nada, avisa para ele digitar
-    if (textoDigitado.trim() === "") {
-        alert("Por favor, descreva o que você imagina antes de gerar!");
+function mudarCorDaPagina() {
+    // Pega o texto digitado, transforma em letras minúsculas e remove espaços vazios
+    let textoDigitado = areaTexto.value.toLowerCase().trim();
+
+    if (textoDigitado === "") {
+        alert("Por favor, digite o nome de uma cor!");
         return;
     }
 
-    // Alerta de teste para provar que o botão funcionou
-    alert("O botão funcionou! Você digitou: " + textoDigitado);
+    // Se o usuário digitou em português, traduz para o inglês. Se não, usa o que ele digitou.
+    let corFinal = coresTraduzidas[textoDigitado] || textoDigitado;
+
+    // Altera a cor de fundo do body do CSS para a cor escolhida
+    corpoDaPagina.style.background = corFinal;
 }
 
-// 3. Diz para o botão ficar esperando (escutando) o clique do usuário
-botaoGerar.addEventListener("click", mapearCliqueDoBotao);
+// Escuta o clique do botão para rodar a função
+botaoGerar.addEventListener("click", mudarCorDaPagina);
